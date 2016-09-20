@@ -19,6 +19,7 @@ public class GameFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_game,container,false);
+        //你好
         return layout;
     }
 }
