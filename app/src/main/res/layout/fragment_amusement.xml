@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="娱乐"/>
+        <ImageView
+            android:id="@+id/amuse_seaerch_image"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:clickable="true"
+            android:background="@drawable/sousuo_icon"/>
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/amuse_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        app:tabSelectedTextColor="#1CD39B"
+        app:tabIndicatorColor="#1CD39B"
+        app:tabMode="fixed"
+        android:paddingBottom="3dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/amuse_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
