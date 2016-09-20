@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.qf.administrator.xiongmao.ui.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_controller_height">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/main_controller"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_controller_height"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp">
+        <RadioButton
+            android:id="@+id/main_controller_home"
+            style="@style/controller_button_style"
+            android:drawableTop="@drawable/home"
+            android:checked="true"
+            android:text="@string/home"/>
+        <RadioButton
+            android:id="@+id/main_controller_game"
+            style="@style/controller_button_style"
+            android:drawableTop="@drawable/game"
+            android:text="@string/game"/>
+        <RadioButton
+            android:id="@+id/main_controller_amusement"
+            style="@style/controller_button_style"
+            android:drawableTop="@drawable/amusement"
+            android:text="@string/amusement"/>
+        <RadioButton
+            android:id="@+id/main_controller_goddess"
+            style="@style/controller_button_style"
+            android:drawableTop="@drawable/goddess"
+            android:text="@string/goddess"/>
+        <RadioButton
+            android:id="@+id/main_controller_mine"
+            style="@style/controller_button_style"
+            android:drawableTop="@drawable/mine"
+            android:text="@string/mine"/>
+
+    </RadioGroup>
+
+</FrameLayout>
