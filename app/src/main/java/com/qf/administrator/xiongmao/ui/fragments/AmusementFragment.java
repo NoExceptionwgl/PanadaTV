@@ -19,7 +19,7 @@ public class AmusementFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_amusement,container,false);
-        //娱乐页面内容
+        //娱乐页面内容  简洁
         return layout;
     }
 }
