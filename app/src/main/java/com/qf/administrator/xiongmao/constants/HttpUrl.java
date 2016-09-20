@@ -5,5 +5,6 @@ package com.qf.administrator.xiongmao.constants;
  */
 public class HttpUrl {
 
+    public static final String GameUrl= "http://api.m.panda.tv/index.php?method=category.list&type=game&__version=1.2.0.1441&__plat=android";
 
 }

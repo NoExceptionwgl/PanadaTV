@@ -3,7 +3,6 @@ package com.qf.administrator.xiongmao.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -83,18 +82,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //------------------------ViewPager回调监听---------------------------------
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.e(TAG, "onPageScrolled: " );
+//        Log.e(TAG, "onPageScrolled: " );
     }
 
     @Override
     public void onPageSelected(int position) {
-        Log.e(TAG, "onPageSelected: " );
+//        Log.e(TAG, "onPageSelected: " );
         RadioButton child = (RadioButton) mController.getChildAt(position);
         child.setChecked(true);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        Log.e(TAG, "onPageScrollStateChanged: " );
+//        Log.e(TAG, "onPageScrollStateChanged: " );
     }
 }
