@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.jude.rollviewpager.RollPagerView;
 import com.qf.administrator.xiongmao.R;
 import com.qf.administrator.xiongmao.adapters.homesplendidadapter.SplendidAdapter;
 import com.qf.administrator.xiongmao.models.homemodel.HomeModel;
@@ -30,11 +29,10 @@ import java.util.List;
  */
 public class SplendidFragment extends BaseFragment implements SplendidAdapter.OneItemClicOne,PullToRefreshBase.OnRefreshListener2 {
     public static final String TAG=SplendidFragment.class.getSimpleName();
-//    private RollPagerView mRollPagerView;
-//    private SplendidAdapter adapter;
     private PullToRefreshRecyclerView mRecyclerView;
     private SplendidAdapter adapter1;
     private static int pageno=1;
+    private static final String URL="http://api.m.panda.tv/ajax_live_lists?pageno="+pageno+"&pagenum=20&status=2&order=person_num&sproom=1&__version=1.2.0.1441&__plat=android&banner=1";
     private RecyclerView refreshableView;
 
     @Nullable
@@ -54,9 +52,8 @@ public class SplendidFragment extends BaseFragment implements SplendidAdapter.On
     enum State{
         DOWN,UP
     }
-//http://api.m.panda.tv/ajax_live_lists?pageno=2&pagenum=20&status=2&order=person_num&sproom=1&__version=1.2.0.1441&__plat=android&banner=1
-    private void setUpView(final State state) {
-         final String URL="http://api.m.panda.tv/ajax_live_lists?pageno="+pageno+"&pagenum=20&status=2&order=person_num&sproom=1&__version=1.2.0.1441&__plat=android&banner=1";
+  private void setUpView(final State state) {
+
 
         RequestParams requestParams = new RequestParams(URL);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
@@ -105,16 +102,6 @@ public class SplendidFragment extends BaseFragment implements SplendidAdapter.On
         adapter1 = new SplendidAdapter(getActivity(),null);
         adapter1.setListener(this);
         refreshableView.setAdapter(adapter1);
-
-//        mRecyclerView.setLayoutParams();
-//        mRollPagerView = ((RollPagerView) layout.findViewById(R.id.splendid_rollpager));
-//        //设置播放时间间隔
-//        mRollPagerView.setPlayDelay(1000);
-//        //设置透明度
-//        mRollPagerView.setAnimationDurtion(500);
-        //设置适配器
-//        adapter = new SplendidAdapter(null,getActivity());
-//        mRollPagerView.setAdapter(adapter);
     }
 
     @Override
