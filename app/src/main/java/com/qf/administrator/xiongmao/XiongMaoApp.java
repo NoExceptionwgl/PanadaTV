@@ -5,7 +5,7 @@ import android.app.Application;
 import org.xutils.x;
 
 /**
- * Created by Administrator on 2016/9/19.
+ *
  */
 public class XiongMaoApp extends Application{
 

@@ -31,8 +31,15 @@ public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder
 
     public void addRes(List<PanadaShowModel.DataBean.ItemsBean> data) {
         if (data != null) {
-            this.data = data;
             this.data.addAll(data);
+            notifyDataSetChanged();
+        }
+    }
+    public void upData(List<PanadaShowModel.DataBean.ItemsBean> data) {
+        if (data != null) {
+            this.data.clear();
+            this.data.addAll(data);
+            notifyDataSetChanged();
         }
     }
 
@@ -49,7 +56,7 @@ public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data != null? data.size(): 0;
     }
 
     static
