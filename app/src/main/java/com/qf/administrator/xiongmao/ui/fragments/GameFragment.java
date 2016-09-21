@@ -3,6 +3,7 @@ package com.qf.administrator.xiongmao.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,11 +30,13 @@ import butterknife.InjectView;
 /**
  * 游戏
  */
-public class GameFragment extends BaseFragment implements GameAdapter.OnItemClick {
+public class GameFragment extends BaseFragment implements GameAdapter.OnItemClick, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = GameFragment.class.getSimpleName();
     @InjectView(R.id.stu_game_recycler)
     RecyclerView mRecycler;
+    @InjectView(R.id.stu_game_swipe)
+    SwipeRefreshLayout mSwipe;
     private GameAdapter adapter;
 
     @Nullable
@@ -47,47 +50,26 @@ public class GameFragment extends BaseFragment implements GameAdapter.OnItemClic
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         initView();
-        setupView();
+        onRefresh();
         super.onActivityCreated(savedInstanceState);
     }
 
     private void initView() {
+        //设置刷新颜色
+        mSwipe.setColorSchemeResources(R.color.swipeColor);
+        //设置下拉距离
+        mSwipe.setProgressViewOffset(true, 100,200 );
+
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 3);
         mRecycler.setLayoutManager(layout);
-        adapter = new GameAdapter(getActivity(),null);
+
+        adapter = new GameAdapter(getActivity(), null);
         adapter.setListener(this);
         mRecycler.setAdapter(adapter);
+        //设置刷新监听
+        mSwipe.setOnRefreshListener(this);
+
     }
-
-    private void setupView() {
-        RequestParams requestParams = new RequestParams(HttpUrl.GameUrl);
-        x.http().get(requestParams, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.e(TAG, "onSuccess: "+result );
-                Gson gson = new Gson();
-                GameModel gameModel = gson.fromJson(result, GameModel.class);
-                List<GameModel.DataBean> data = gameModel.getData();
-                adapter.updateRes(data);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.e(TAG, "onError: " );
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-                Log.e(TAG, "onCancelled: " );
-            }
-
-            @Override
-            public void onFinished() {
-                Log.e(TAG, "onFinished: " );
-            }
-        });
-    }
-
 
     @Override
     public void onDestroyView() {
@@ -96,10 +78,42 @@ public class GameFragment extends BaseFragment implements GameAdapter.OnItemClic
     }
 
     @Override
-    public void onItem(int position,String cname,String ename) {
+    public void onItem(int position, String cname, String ename) {
         Intent intent = new Intent(getActivity(), GameItemActivity.class);
-        intent.putExtra("cname",cname);
-        intent.putExtra("ename",ename);
+        intent.putExtra("cname", cname);
+        intent.putExtra("ename", ename);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        RequestParams requestParams = new RequestParams(HttpUrl.GameUrl);
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+//                Log.e(TAG, "onSuccess: " + result);
+                Gson gson = new Gson();
+                GameModel gameModel = gson.fromJson(result, GameModel.class);
+                List<GameModel.DataBean> data = gameModel.getData();
+                adapter.updateRes(data);
+                mSwipe.setRefreshing(false);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.e(TAG, "onError: ");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Log.e(TAG, "onCancelled: ");
+            }
+
+            @Override
+            public void onFinished() {
+                Log.e(TAG, "onFinished: ");
+            }
+        });
+
     }
 }

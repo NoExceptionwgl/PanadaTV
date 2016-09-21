@@ -52,6 +52,13 @@ public class GameActivityAdapter extends RecyclerView.Adapter<GameActivityAdapte
         }
     }
 
+    public void addRes(List<GameActivityModel.DataBean.ItemsBean> data) {
+        if (data != null) {
+            this.data.addAll(data);
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View layout = inflater.inflate(R.layout.game_activity_item, parent, false);

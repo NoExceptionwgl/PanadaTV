@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stu_talk_fragment_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/stu_talk_fragment_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/haha"/>
+
+        <EditText
+            android:id="@+id/stu_talk_fragment_et"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/talk_edit"
+            android:layout_marginLeft="5dp"
+            android:hint="输入聊天内容"/>
+
+        <TextView
+            android:id="@+id/stu_talk_fragment_send"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:text="发送"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:src="@mipmap/input_icon_gif_hover"/>
+
+    </LinearLayout>
+
+</FrameLayout>

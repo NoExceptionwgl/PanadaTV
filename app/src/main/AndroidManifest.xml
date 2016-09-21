@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".XiongMaoApp"
         android:allowBackup="true"
@@ -22,7 +28,7 @@
         </activity>
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.gameactivitys.GameItemActivity" />
-        <activity android:name=".ui.gameactivitys.GameItemTwoActivity"></activity>
+        <activity android:name=".ui.gameactivitys.GameItemTwoActivity"/>
     </application>
 
 </manifest>

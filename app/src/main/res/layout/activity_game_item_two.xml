@@ -1,10 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.qf.administrator.xiongmao.ui.gameactivitys.GameItemTwoActivity">
 
+    <io.vov.vitamio.widget.VideoView
+        android:id="@+id/stu_game_activity_two_item_videoview"
+        android:layout_width="match_parent"
+        android:layout_height="220dp" />
+
+    <RadioGroup
+        android:id="@+id/stu_game_activity_two_item_rg"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RadioButton
+            android:id="@+id/stu_game_activity_two_item_liaotian"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:checked="true"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/game_activity_liaotian"
+            android:textColor="@drawable/controller_text_color"
+            android:background="@drawable/radiobutton_xiaotiao"
+            android:text="聊天"/>
+
+        <RadioButton
+            android:id="@+id/stu_game_activity_two_item_toplist"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="15dp"
+            android:drawableLeft="@drawable/game_activity_toplist"
+            android:textColor="@drawable/controller_text_color"
+            android:background="@drawable/radiobutton_xiaotiao"
+            android:text="排行榜"/>
+
+        <RadioButton
+            android:id="@+id/stu_game_activity_two_item_person"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableLeft="@drawable/game_activity_person"
+            android:padding="15dp"
+            android:gravity="center"
+            android:textColor="@drawable/controller_text_color"
+            android:background="@drawable/radiobutton_xiaotiao"
+            android:text="主播"/>
+
+        <RadioButton
+            android:id="@+id/stu_game_activity_two_item_book"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableLeft="@mipmap/liveroom_guanzhu"
+            android:gravity="center"
+            android:background="#1CD39B"
+            android:textColor="#ffffff"
+            android:padding="15dp"
+            android:text="订阅"/>
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/stu_game_activity_two_item_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-</RelativeLayout>
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
