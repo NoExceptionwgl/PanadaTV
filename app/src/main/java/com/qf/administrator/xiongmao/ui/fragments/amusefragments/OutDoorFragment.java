@@ -29,13 +29,13 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class OutDoorFragment extends BaseFragment {
+public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = OutDoorFragment.class.getSimpleName();
     @InjectView(R.id.out_door_recycler_view)
     RecyclerView mRecyclerView;
     @InjectView(R.id.out_door_swipe)
-    SwipeRefreshLayout mSwipe;
+    SwipeRefreshLayout mSwipeRefresh;
     private PanadaAdapter adapter;
 
     @Nullable
@@ -50,8 +50,17 @@ public class OutDoorFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
+        initData(States.DOWN);
 
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+    enum States{
+        DOWN,UP
     }
 
     private void initView() {
@@ -60,9 +69,11 @@ public class OutDoorFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new PanadaAdapter(getActivity(),null);
         mRecyclerView.setAdapter(adapter);
+        //添加下拉刷新
+        mSwipeRefresh.setOnRefreshListener(this);
     }
 
-    private void initData() {
+    private void initData(final States states) {
         RequestParams params = new RequestParams(HttpUrl.OUTDOOR_URL);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -71,7 +82,14 @@ public class OutDoorFragment extends BaseFragment {
                 Gson gson = new Gson();
                 PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
                 List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
-                adapter.addRes(data);
+                switch (states) {
+                    case DOWN:
+                        adapter.upData(data);
+                        break;
+                    case UP:
+                        adapter.addRes(data);
+                        break;
+                }
             }
 
             @Override

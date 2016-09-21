@@ -28,12 +28,12 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class MusicFragment extends BaseFragment {
+public class MusicFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @InjectView(R.id.panada_show_recycler_view)
     RecyclerView mRecyclerView;
     @InjectView(R.id.panada_show_swipe)
-    SwipeRefreshLayout mSwipRefresh;
+    SwipeRefreshLayout mSwipeRefresh;
     private PanadaAdapter adapter;
 
     @Nullable
@@ -47,18 +47,28 @@ public class MusicFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
+        initData(States.DOWN);
     }
 
+    @Override
+    public void onRefresh() {
+
+    }
+
+    enum States{
+        DOWN,UP
+    }
     private void initView() {
         //RecyclerView设置管理器，绑定适配器
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new PanadaAdapter(getActivity(),null);
         mRecyclerView.setAdapter(adapter);
+        //添加下拉刷新
+        mSwipeRefresh.setOnRefreshListener(this);
     }
 
-    private void initData() {
+    private void initData(final States states) {
         RequestParams params = new RequestParams(HttpUrl.MUSIC_URL);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -66,7 +76,14 @@ public class MusicFragment extends BaseFragment {
                 Gson gson = new Gson();
                 PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
                 List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
-                adapter.addRes(data);
+                switch (states) {
+                    case DOWN:
+                        adapter.upData(data);
+                        break;
+                    case UP:
+                        adapter.addRes(data);
+                        break;
+                }
             }
 
             @Override
