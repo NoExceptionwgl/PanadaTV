@@ -61,19 +61,24 @@ public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerView> {
      */
     @Override
     protected boolean isReadyForPullStart() {
-        // 获取刷新的View
+        //获取刷新的view
         RecyclerView recyclerView = getRefreshableView();
-        // 获取RecyclerView中的第一项
-        View child = recyclerView.getChildAt(0);
-        // 获取RecyclerView的顶部内边距
-        int paddingTop = recyclerView.getPaddingTop();
-        // 获取child的顶部外边距
-        MarginLayoutParams params = (MarginLayoutParams) child.getLayoutParams();
-        int topMargin = params.topMargin;
-        // 获取第一个item距离顶部的高度
-        int top = child.getTop();
+        if (recyclerView.getChildAt(0) == null) {
+            return false;
+        }else {
+            //获取RecyclerView中的第一项
+            View childAt = recyclerView.getChildAt(0);
+            //获取RecyclerView的顶部内边距
+            int paddingTop = recyclerView.getPaddingTop();
+            //获取child的顶部外边距
+            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
+            int topMargin = layoutParams.topMargin;
+            //获取第一个item距离顶部的高度
+            int top = childAt.getTop();
 
-        return top == paddingTop + topMargin;
+            return top == paddingTop+topMargin;
+        }
+
     }
 
     /**
@@ -82,27 +87,30 @@ public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerView> {
      */
     @Override
     protected boolean isReadyForPullEnd() {
-        // 获取刷新的View
-        RecyclerView recyclerView = getRefreshableView();
-        // 获取RecyclerView的最后一个item
-        int childCount = recyclerView.getChildCount();
-        View child = recyclerView.getChildAt(childCount - 1);
-        // 获取RecyclerView的高度
-        int height = recyclerView.getHeight();
-        // 获取RecyclerView底部内边距
-        int paddingBottom = recyclerView.getPaddingBottom();
-        // 获取最后一个item的底部外边距
-        MarginLayoutParams params = (MarginLayoutParams) child.getLayoutParams();
-        int bottomMargin = params.bottomMargin;
-        // 获取child 底部距离RecyclerView顶部的距离
-        int bottom = child.getBottom();
+        //获取刷新的View
+        RecyclerView refreshableView = getRefreshableView();
+        //获取RecyclerView的最后一个item
+        int childCount = refreshableView.getChildCount();
+        if (getChildAt(childCount - 1) == null) {
+            return false;
+        }else {
+            View childAt = refreshableView.getChildAt(childCount - 1);
+            //获取RecyclerView的高度
+            int height = refreshableView.getHeight();
+            //获取RecyclerView的底部内边距
+            int paddingBottom = refreshableView.getPaddingBottom();
+            //获取最后一个item的底部外边距
+            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
+            int bottomMargin = layoutParams.bottomMargin;
+            //获取child 底部距离RecyclerView顶部的距离
+            int bottom = childAt.getBottom();
+            //添加一个判断条件 获取一下RecyclerView的Adapter中的item条数
+            int itemCount = refreshableView.getAdapter().getItemCount();
+            //计算最后一个view在适配器中的位置
+            int childAdapterPosition = refreshableView.getChildAdapterPosition(childAt);
 
-        // 添加一个判断条件 获取一下RecyclerView的Adapter中的item条数
-        int itemCount = recyclerView.getAdapter().getItemCount();
-        // 计算最后一个view在适配器中的位置
-        int childAdapterPosition = recyclerView.getChildAdapterPosition(child);
-
-        return height == bottom + bottomMargin + paddingBottom  && itemCount == childAdapterPosition + 1;
+            return height == bottom+bottomMargin+paddingBottom && itemCount == childAdapterPosition+1;
+        }
     }
 
 }

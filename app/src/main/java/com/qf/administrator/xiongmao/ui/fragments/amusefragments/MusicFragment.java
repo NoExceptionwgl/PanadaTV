@@ -91,4 +91,5 @@ public class MusicFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
 }

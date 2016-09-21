@@ -91,4 +91,6 @@ public class PetParkFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
+
 }

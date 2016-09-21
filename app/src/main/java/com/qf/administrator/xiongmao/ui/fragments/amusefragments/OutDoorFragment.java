@@ -96,4 +96,6 @@ public class OutDoorFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
+
 }

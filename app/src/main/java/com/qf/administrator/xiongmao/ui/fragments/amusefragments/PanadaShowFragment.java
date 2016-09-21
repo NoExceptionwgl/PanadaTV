@@ -29,7 +29,7 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, PanadaAdapter.OnItemClickListener {
 
     public static final String TAG = PanadaShowFragment.class.getSimpleName();
 
@@ -55,6 +55,7 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
         initData(States.DOWN);
     }
 
+
     enum States{
         DOWN,UP
     }
@@ -68,6 +69,9 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
 
         //添加下拉刷新
         mSwipeRefresh.setOnRefreshListener(this);
+
+        //adapter的接口回调
+        adapter.setListener(this);
     }
 
     private void initData(final States states) {
@@ -116,5 +120,11 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
         pageno = 1;
         initData(States.DOWN);
         mSwipeRefresh.setRefreshing(false);
+    }
+
+//-------------------adapter接口回调-----------------------
+    @Override
+    public void onItemClick(int position) {
+
     }
 }

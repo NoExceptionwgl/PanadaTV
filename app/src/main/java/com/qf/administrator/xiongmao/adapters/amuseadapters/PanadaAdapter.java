@@ -23,12 +23,18 @@ import butterknife.InjectView;
 /**
  *
  */
-public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder> {
+public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder> implements View.OnClickListener {
 
 
     private static final String TAG = PanadaAdapter.class.getSimpleName();
     private LayoutInflater inflater;
     private List<PanadaShowModel.DataBean.ItemsBean> data;
+    private RecyclerView mRecyclerView;
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public PanadaAdapter(Context context, List<PanadaShowModel.DataBean.ItemsBean> data) {
         if (data != null) {
@@ -57,6 +63,7 @@ public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.amuse_show_item, parent, false);
+        itemView.setOnClickListener(this);
         return new ViewHolder(itemView);
     }
 
@@ -87,8 +94,23 @@ public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder
     }
 
     @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
     public int getItemCount() {
         return data != null ? data.size() : 0;
+    }
+
+//-------------------条目点击时监听-------------------------
+    @Override
+    public void onClick(View v) {
+        int position = mRecyclerView.getChildAdapterPosition(v);
+        if (listener != null) {
+            listener.onItemClick(position);
+        }
     }
 
 
@@ -109,6 +131,10 @@ public class PanadaAdapter extends RecyclerView.Adapter<PanadaAdapter.ViewHolder
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 
 }
