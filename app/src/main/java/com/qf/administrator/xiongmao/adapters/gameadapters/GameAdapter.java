@@ -24,6 +24,8 @@ import butterknife.InjectView;
  */
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements View.OnClickListener {
 
+
+    //
     private List<GameModel.DataBean> data;
     private LayoutInflater inflater;
     private RecyclerView mRecyclerView;
