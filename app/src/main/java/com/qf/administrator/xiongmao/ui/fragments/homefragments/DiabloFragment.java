@@ -1,4 +1,4 @@
-package com.qf.administrator.xiongmao.ui.fragments;
+package com.qf.administrator.xiongmao.ui.fragments.homefragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qf.administrator.xiongmao.R;
+import com.qf.administrator.xiongmao.ui.fragments.BaseFragment;
 
 /**
- * 女神
+ * 暗黑破坏神3
  */
-public class GoddessFragment extends BaseFragment {
-
-    private static final String TAG = GoddessFragment.class.getSimpleName();
-
+public class DiabloFragment extends BaseFragment {
+    public static final String TAG=DiabloFragment.class.getSimpleName();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.fragment_goddess,container,false);
+
+        layout=inflater.inflate(R.layout.fragment_diablo,container,false);
         return layout;
     }
 }

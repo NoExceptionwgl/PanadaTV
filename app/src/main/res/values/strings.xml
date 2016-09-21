@@ -5,4 +5,14 @@
     <string name="amusement">娱乐</string>
     <string name="goddess">女神</string>
     <string name="mine">我的</string>
+
+    <string-array name="tabs">
+        <item>精彩推荐</item>
+        <item>英雄联盟</item>
+        <item>暗黑破坏神3</item>
+        <item>炉石传说</item>
+        <item>熊猫星秀</item>
+        <item>户外直播</item>
+        <item>魔兽世界</item>
+    </string-array>
 </resources>
