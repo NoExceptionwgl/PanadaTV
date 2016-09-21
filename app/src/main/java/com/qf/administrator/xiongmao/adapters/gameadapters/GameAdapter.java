@@ -1,4 +1,4 @@
-package com.qf.administrator.xiongmao.adapters;
+package com.qf.administrator.xiongmao.adapters.gameadapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +22,16 @@ import butterknife.InjectView;
 /**
  * Created by a on 2016/9/20.
  */
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<GameModel.DataBean> data;
     private LayoutInflater inflater;
+    private RecyclerView mRecyclerView;
+    private OnItemClick listener;
+
+    public void setListener(OnItemClick listener) {
+        this.listener = listener;
+    }
 
     public GameAdapter(Context context, List<GameModel.DataBean> data) {
         if (data != null) {
@@ -47,7 +53,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View layout = inflater.inflate(R.layout.game_item, parent, false);
+        layout.setOnClickListener(this);
         return new ViewHolder(layout);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
     }
 
 
@@ -62,6 +75,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         return data != null ? data.size() : 0;
     }
 
+    @Override
+    public void onClick(View v) {
+        int position = mRecyclerView.getChildAdapterPosition(v);
+        String cname = data.get(position).getCname();
+        String ename = data.get(position).getEname();
+        if (listener!=null) {
+            listener.onItem(position,cname,ename);
+        }
+    }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.stu_game_item_iv)
@@ -73,5 +96,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
             super(view);
             ButterKnife.inject(this, view);
         }
+    }
+
+    public interface OnItemClick{
+        void onItem(int position,String cname,String ename);
     }
 }

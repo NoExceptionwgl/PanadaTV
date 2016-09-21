@@ -1,5 +1,6 @@
 package com.qf.administrator.xiongmao.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,9 +12,10 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
-import com.qf.administrator.xiongmao.adapters.GameAdapter;
+import com.qf.administrator.xiongmao.adapters.gameadapters.GameAdapter;
 import com.qf.administrator.xiongmao.constants.HttpUrl;
 import com.qf.administrator.xiongmao.models.GameModel;
+import com.qf.administrator.xiongmao.ui.gameactivitys.GameItemActivity;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -27,7 +29,7 @@ import butterknife.InjectView;
 /**
  * 游戏
  */
-public class GameFragment extends BaseFragment {
+public class GameFragment extends BaseFragment implements GameAdapter.OnItemClick {
 
     private static final String TAG = GameFragment.class.getSimpleName();
     @InjectView(R.id.stu_game_recycler)
@@ -53,6 +55,7 @@ public class GameFragment extends BaseFragment {
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 3);
         mRecycler.setLayoutManager(layout);
         adapter = new GameAdapter(getActivity(),null);
+        adapter.setListener(this);
         mRecycler.setAdapter(adapter);
     }
 
@@ -90,5 +93,13 @@ public class GameFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    @Override
+    public void onItem(int position,String cname,String ename) {
+        Intent intent = new Intent(getActivity(), GameItemActivity.class);
+        intent.putExtra("cname",cname);
+        intent.putExtra("ename",ename);
+        startActivity(intent);
     }
 }
