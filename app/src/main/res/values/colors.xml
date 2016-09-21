@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBlue">#135ddc</color>
 
     <!--radiobutton按下时颜色-->
     <color name="radioButtonPressed">#ffffff</color>

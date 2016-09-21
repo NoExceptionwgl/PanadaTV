@@ -5,12 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
+import com.qf.administrator.xiongmao.adapters.amuseadapters.PanadaAdapter;
 import com.qf.administrator.xiongmao.constants.HttpUrl;
 import com.qf.administrator.xiongmao.models.amusemodels.PanadaShowModel;
 import com.qf.administrator.xiongmao.ui.fragments.BaseFragment;
@@ -27,12 +29,16 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class PanadaShowFragment extends BaseFragment {
+public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    public static final String TAG = PanadaShowFragment.class.getSimpleName();
 
     @InjectView(R.id.panada_show_recycler_view)
     RecyclerView mRecyclerView;
     @InjectView(R.id.panada_show_swipe)
     SwipeRefreshLayout mSwipeRefresh;
+    private PanadaAdapter adapter;
+    private int pageno = 1;
 
     @Nullable
     @Override
@@ -46,28 +52,41 @@ public class PanadaShowFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
-
+        initData(States.DOWN);
     }
 
-
+    enum States{
+        DOWN,UP
+    }
 
     private void initView() {
         //RecyclerView设置管理器，绑定适配器
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        //mRecyclerView.setAdapter();
+        adapter = new PanadaAdapter(getActivity(),null);
+        mRecyclerView.setAdapter(adapter);
+
+        //添加下拉刷新
+        mSwipeRefresh.setOnRefreshListener(this);
     }
 
-    private void initData() {
-        RequestParams params = new RequestParams(HttpUrl.PANADA_URL);
+    private void initData(final States states) {
+        String url = "?cate=yzdr&pageno=" + pageno + "&pagenum=20&sproom=1&__version=1.2.0.1441&__plat=android";
+        RequestParams params = new RequestParams(HttpUrl.PANADA_URL + url);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
                 List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
-
+                switch (states) {
+                    case DOWN:
+                        adapter.upData(data);
+                        break;
+                    case UP:
+                        adapter.addRes(data);
+                        break;
+                }
             }
 
             @Override
@@ -77,12 +96,10 @@ public class PanadaShowFragment extends BaseFragment {
 
             @Override
             public void onCancelled(CancelledException cex) {
-
             }
 
             @Override
             public void onFinished() {
-
             }
         });
     }
@@ -91,5 +108,13 @@ public class PanadaShowFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+//---------------SwipRefreshLayout的刷新监听--------------------
+    @Override
+    public void onRefresh() {
+        pageno = 1;
+        initData(States.DOWN);
+        mSwipeRefresh.setRefreshing(false);
     }
 }

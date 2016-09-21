@@ -3,8 +3,8 @@
     android:id="@+id/panada_show_swipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="6dp"
-    android:paddingRight="6dp">
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/panada_show_recycler_view"
