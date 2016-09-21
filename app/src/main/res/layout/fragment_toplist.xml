@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
-        android:layout_margin="30dp">
+        android:layout_margin="20dp">
 
         <RadioButton
             android:id="@+id/stu_toplist_fragment_week"
@@ -17,6 +17,11 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
+            android:drawableLeft="@drawable/week_selector"
+            android:background="@drawable/toplist_bg_two"
+            android:checked="true"
+            android:paddingLeft="20dp"
+            android:textColor="@drawable/toplist_text_color"
             android:text="贡献周榜"/>
 
         <RadioButton
@@ -26,6 +31,10 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:background="@drawable/toplist_bg"
+            android:drawableLeft="@drawable/totle_selector"
+            android:textColor="@drawable/toplist_text_color"
             android:text="贡献总榜"/>
     </RadioGroup>
 
