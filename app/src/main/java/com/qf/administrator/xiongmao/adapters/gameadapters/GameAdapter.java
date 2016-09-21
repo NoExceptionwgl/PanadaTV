@@ -78,8 +78,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
     @Override
     public void onClick(View v) {
         int position = mRecyclerView.getChildAdapterPosition(v);
+        String cname = data.get(position).getCname();
+        String ename = data.get(position).getEname();
         if (listener!=null) {
-            listener.onItem(position);
+            listener.onItem(position,cname,ename);
         }
     }
 
@@ -97,6 +99,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
     }
 
     public interface OnItemClick{
-        void onItem(int position);
+        void onItem(int position,String cname,String ename);
     }
 }

@@ -96,8 +96,10 @@ public class GameFragment extends BaseFragment implements GameAdapter.OnItemClic
     }
 
     @Override
-    public void onItem(int position) {
+    public void onItem(int position,String cname,String ename) {
         Intent intent = new Intent(getActivity(), GameItemActivity.class);
+        intent.putExtra("cname",cname);
+        intent.putExtra("ename",ename);
         startActivity(intent);
     }
 }
