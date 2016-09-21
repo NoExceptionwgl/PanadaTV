@@ -9,8 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
+import com.qf.administrator.xiongmao.constants.HttpUrl;
+import com.qf.administrator.xiongmao.models.amusemodels.PanadaShowModel;
 import com.qf.administrator.xiongmao.ui.fragments.BaseFragment;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,11 +45,46 @@ public class PanadaShowFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initView();
+        initData();
+
+    }
+
+
+
+    private void initView() {
         //RecyclerView设置管理器，绑定适配器
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         //mRecyclerView.setAdapter();
+    }
 
+    private void initData() {
+        RequestParams params = new RequestParams(HttpUrl.PANADA_URL);
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
+                List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     @Override

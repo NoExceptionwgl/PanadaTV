@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="180dp"
-    android:layout_height="150dp">
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="156dp">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="120dp">
         <ImageView
-            android:id="@+id/panada_show_item_image"
+            android:id="@+id/panada_show_item_contain_image"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:src="@mipmap/bg_live_default2"/>
@@ -21,8 +22,41 @@
             android:paddingLeft="4dp"
             android:layout_gravity="bottom"
             android:text="熊猫星秀"/>
-
+        <ImageView
+            android:id="@+id/panada_show_item_goddess_image"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            android:src="@mipmap/ic_broadcast_default"/>
     </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/panada_show_item_nick"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="霸气的小武"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toLeftOf="@+id/panda_show_item_num"
+            android:layout_marginRight="6dp"
+            android:src="@mipmap/gray_eye"/>
+        <TextView
+            android:id="@+id/panda_show_item_num"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical"
+            android:text="5678"/>
+
+    </RelativeLayout>
 
 
 
