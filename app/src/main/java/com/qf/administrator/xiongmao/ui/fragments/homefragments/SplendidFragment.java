@@ -1,5 +1,6 @@
 package com.qf.administrator.xiongmao.ui.fragments.homefragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import com.qf.administrator.xiongmao.R;
 import com.qf.administrator.xiongmao.adapters.homesplendidadapter.SplendidAdapter;
 import com.qf.administrator.xiongmao.models.homemodel.HomeModel;
 import com.qf.administrator.xiongmao.ui.fragments.BaseFragment;
+import com.qf.administrator.xiongmao.ui.fragments.homefragments.homeactivity.HomeActivity;
 import com.qf.administrator.xiongmao.util.PullToRefreshRecyclerView;
 
 import org.xutils.common.Callback;
@@ -106,7 +108,9 @@ public class SplendidFragment extends BaseFragment implements SplendidAdapter.On
 
     @Override
     public void OnitemClickListener(int position) {
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
 
+        startActivity(intent);
     }
 
     @Override
