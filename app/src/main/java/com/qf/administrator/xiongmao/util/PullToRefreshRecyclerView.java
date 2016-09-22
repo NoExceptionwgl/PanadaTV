@@ -97,9 +97,8 @@ public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerView> {
         //获取RecyclerView的底部内边距
         int paddingBottom = refreshableView.getPaddingBottom();
         //获取最后一个item的底部外边距
-        if (childAt == null) {
-            return false;
-        }else {
+        if (childAt != null) {
+
             MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
             int bottomMargin = layoutParams.bottomMargin;
             //获取child 底部距离RecyclerView顶部的距离
@@ -110,6 +109,10 @@ public class PullToRefreshRecyclerView extends PullToRefreshBase<RecyclerView> {
             int childAdapterPosition = refreshableView.getChildAdapterPosition(childAt);
 
             return height == bottom + bottomMargin + paddingBottom && itemCount == childAdapterPosition + 1;
+        }else {
+            return false;
         }
+
     }
+
 }

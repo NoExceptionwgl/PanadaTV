@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
@@ -28,13 +29,15 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class PetParkFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PetParkFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, PanadaAdapter.OnItemClickListener {
 
     @InjectView(R.id.panada_show_recycler_view)
     RecyclerView mRecyclerView;
     @InjectView(R.id.panada_show_swipe)
     SwipeRefreshLayout mSwipeRefresh;
     private PanadaAdapter adapter;
+    private int pageno = 1;
+    private PanadaShowModel panadaShowModel;
 
     @Nullable
     @Override
@@ -53,8 +56,10 @@ public class PetParkFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-
+        pageno = 1;
+        initData(States.DOWN);
     }
+
 
     enum States{
         DOWN,UP
@@ -68,15 +73,18 @@ public class PetParkFragment extends BaseFragment implements SwipeRefreshLayout.
         mRecyclerView.setAdapter(adapter);
         //添加下拉刷新
         mSwipeRefresh.setOnRefreshListener(this);
+        //adapter的接口回调
+        adapter.setListener(this);
     }
 
     private void initData(final States states) {
-        RequestParams params = new RequestParams(HttpUrl.PETPARK_URL);
+        String url = "?cate=pets&pageno=" + pageno + "&pagenum=20&sproom=1&__version=1.2.0.1441&__plat=android";
+        RequestParams params = new RequestParams(HttpUrl.PETPARK_URL + url);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
+                panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
                 List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
                 switch (states) {
                     case DOWN:
@@ -99,10 +107,10 @@ public class PetParkFragment extends BaseFragment implements SwipeRefreshLayout.
 
             @Override
             public void onFinished() {
+                mSwipeRefresh.setRefreshing(false);
             }
         });
     }
-
 
     @Override
     public void onDestroyView() {
@@ -110,5 +118,8 @@ public class PetParkFragment extends BaseFragment implements SwipeRefreshLayout.
         ButterKnife.reset(this);
     }
 
-
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getActivity(),panadaShowModel.getData().getItems().get(position).getName() + position , Toast.LENGTH_SHORT).show();
+    }
 }

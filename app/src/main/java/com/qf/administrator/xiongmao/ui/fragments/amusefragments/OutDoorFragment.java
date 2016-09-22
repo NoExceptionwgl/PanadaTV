@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
@@ -29,7 +30,7 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, PanadaAdapter.OnItemClickListener {
 
     private static final String TAG = OutDoorFragment.class.getSimpleName();
     @InjectView(R.id.out_door_recycler_view)
@@ -37,6 +38,8 @@ public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.
     @InjectView(R.id.out_door_swipe)
     SwipeRefreshLayout mSwipeRefresh;
     private PanadaAdapter adapter;
+    private int pageno = 1;
+    private PanadaShowModel panadaShowModel;
 
     @Nullable
     @Override
@@ -56,8 +59,12 @@ public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
+        pageno = 1;
+        initData(States.DOWN);
 
     }
+
+
 
     enum States{
         DOWN,UP
@@ -71,16 +78,19 @@ public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.
         mRecyclerView.setAdapter(adapter);
         //添加下拉刷新
         mSwipeRefresh.setOnRefreshListener(this);
+        //adapter的接口回调
+        adapter.setListener(this);
     }
 
     private void initData(final States states) {
-        RequestParams params = new RequestParams(HttpUrl.OUTDOOR_URL);
+        String url = "?cate=hwzb&pageno=" + pageno + "&pagenum=20&sproom=1&__version=1.2.0.1441&__plat=android";
+        RequestParams params = new RequestParams(HttpUrl.OUTDOOR_URL + url);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.e(TAG, "onSuccess: " + result);
                 Gson gson = new Gson();
-                PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
+                panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
                 List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
                 switch (states) {
                     case DOWN:
@@ -104,7 +114,7 @@ public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.
 
             @Override
             public void onFinished() {
-                Log.e(TAG, "onFinished: " );
+                mSwipeRefresh.setRefreshing(false);
             }
         });
     }
@@ -114,6 +124,9 @@ public class OutDoorFragment extends BaseFragment implements SwipeRefreshLayout.
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getActivity(),panadaShowModel.getData().getItems().get(position).getName() + position , Toast.LENGTH_SHORT).show();
+    }
 
 }

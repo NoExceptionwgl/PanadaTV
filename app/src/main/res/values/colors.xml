@@ -10,4 +10,6 @@
 
     <color name="swipeColor">#1CD39B</color>
     <color name="transparent">#00000000</color>
+    <color name="splashbtn">#949494</color>
+
 </resources>

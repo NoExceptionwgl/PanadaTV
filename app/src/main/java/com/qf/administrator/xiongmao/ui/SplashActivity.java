@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.qf.administrator.xiongmao.R;
+
+import org.xutils.x;
 
 public class SplashActivity extends BaseActivity implements Handler.Callback, View.OnClickListener {
 
@@ -17,6 +20,7 @@ public class SplashActivity extends BaseActivity implements Handler.Callback, Vi
     private Handler mHandler;
     private Button mBtn;
     private int time = 3;
+    private ImageView mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class SplashActivity extends BaseActivity implements Handler.Callback, Vi
         mBtn.setText("跳过" + time);
         mHandler.sendEmptyMessageDelayed(GO_MAIN,DELAY_TIME);
         mBtn.setOnClickListener(this);
+
     }
 
     @Override

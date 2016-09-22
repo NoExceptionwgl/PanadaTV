@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -29,6 +31,9 @@
         <activity android:name=".ui.gameactivitys.GameItemActivity" />
         <activity android:name=".ui.gameactivitys.GameItemTwoActivity" />
         <activity android:name=".ui.fragments.homefragments.homeactivity.HomeActivity"></activity>
+        <activity android:name=".ui.gameactivitys.GameItemTwoActivity" />
+        <activity android:name=".ui.amuseactivity.PanadaShowActivity" />
+        <activity android:name=".util.LoginActivity"/>
     </application>
 
 </manifest>

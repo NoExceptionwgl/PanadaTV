@@ -1,5 +1,6 @@
 package com.qf.administrator.xiongmao.ui.fragments.amusefragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
 import com.qf.administrator.xiongmao.adapters.amuseadapters.PanadaAdapter;
 import com.qf.administrator.xiongmao.constants.HttpUrl;
 import com.qf.administrator.xiongmao.models.amusemodels.PanadaShowModel;
+import com.qf.administrator.xiongmao.ui.amuseactivity.PanadaShowActivity;
 import com.qf.administrator.xiongmao.ui.fragments.BaseFragment;
 
 import org.xutils.common.Callback;
@@ -39,6 +42,7 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
     SwipeRefreshLayout mSwipeRefresh;
     private PanadaAdapter adapter;
     private int pageno = 1;
+    private PanadaShowModel panadaShowModel;
 
     @Nullable
     @Override
@@ -66,10 +70,8 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new PanadaAdapter(getActivity(),null);
         mRecyclerView.setAdapter(adapter);
-
         //添加下拉刷新
         mSwipeRefresh.setOnRefreshListener(this);
-
         //adapter的接口回调
         adapter.setListener(this);
     }
@@ -78,10 +80,11 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
         String url = "?cate=yzdr&pageno=" + pageno + "&pagenum=20&sproom=1&__version=1.2.0.1441&__plat=android";
         RequestParams params = new RequestParams(HttpUrl.PANADA_URL + url);
         x.http().get(params, new Callback.CommonCallback<String>() {
+
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                PanadaShowModel panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
+                panadaShowModel = gson.fromJson(result, PanadaShowModel.class);
                 List<PanadaShowModel.DataBean.ItemsBean> data = panadaShowModel.getData().getItems();
                 switch (states) {
                     case DOWN:
@@ -104,6 +107,7 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
 
             @Override
             public void onFinished() {
+                mSwipeRefresh.setRefreshing(false);
             }
         });
     }
@@ -119,12 +123,13 @@ public class PanadaShowFragment extends BaseFragment implements SwipeRefreshLayo
     public void onRefresh() {
         pageno = 1;
         initData(States.DOWN);
-        mSwipeRefresh.setRefreshing(false);
+
     }
 
 //-------------------adapter接口回调-----------------------
     @Override
     public void onItemClick(int position) {
-
+        Intent intent = new Intent(getActivity(), PanadaShowActivity.class);
+        getActivity().startActivity(intent);
     }
 }
