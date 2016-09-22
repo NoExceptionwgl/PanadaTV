@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/stu_talk_fragment_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
-    </android.support.v7.widget.RecyclerView>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -28,25 +19,39 @@
 
         <EditText
             android:id="@+id/stu_talk_fragment_et"
-            android:layout_width="240dp"
-            android:layout_height="40dp"
+            android:layout_width="230dp"
+            android:layout_height="30dp"
             android:background="@drawable/talk_edit"
             android:layout_marginLeft="5dp"
+            android:textSize="12sp"
+            android:paddingLeft="12dp"
             android:hint="输入聊天内容"/>
 
         <TextView
             android:id="@+id/stu_talk_fragment_send"
             android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:text="发送"
+            android:textSize="12sp"
+            android:background="@drawable/talk_send"
+            android:textColor="@drawable/send_text_color"
             android:gravity="center"/>
 
         <ImageView
+            android:id="@+id/stu_talk_fragment_gift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="6dp"
             android:src="@mipmap/input_icon_gif_hover"/>
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stu_talk_fragment_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top">
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

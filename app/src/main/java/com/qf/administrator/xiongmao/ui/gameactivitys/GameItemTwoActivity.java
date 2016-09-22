@@ -9,9 +9,14 @@ import android.widget.RadioGroup;
 
 import com.qf.administrator.xiongmao.R;
 import com.qf.administrator.xiongmao.adapters.gameadapters.GamePagerAdapter;
+import com.qf.administrator.xiongmao.events.SendHostId;
+import com.qf.administrator.xiongmao.events.SendHostIdTwo;
+import com.qf.administrator.xiongmao.events.SendId;
 import com.qf.administrator.xiongmao.ui.fragments.gamefragments.PersonFragment;
 import com.qf.administrator.xiongmao.ui.fragments.gamefragments.TalkFragment;
 import com.qf.administrator.xiongmao.ui.fragments.gamefragments.ToplistFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,9 +84,22 @@ public class GameItemTwoActivity extends AppCompatActivity implements RadioGroup
                 break;
             case R.id.stu_game_activity_two_item_toplist:
                 mViewPager.setCurrentItem(1);
+                String hostid = getIntent().getStringExtra("hostid");
+                SendHostId sendHostId = new SendHostId();
+                sendHostId.setHostid(hostid);
+                EventBus.getDefault().post(sendHostId);
+
+                String hostidtwo = getIntent().getStringExtra("hostid");
+                SendHostIdTwo sendHostIdTwo = new SendHostIdTwo();
+                sendHostIdTwo.setHostid(hostidtwo);
+                EventBus.getDefault().post(sendHostIdTwo);
                 break;
             case R.id.stu_game_activity_two_item_person:
                 mViewPager.setCurrentItem(2);
+                String id = getIntent().getStringExtra("id");
+                SendId sendId = new SendId();
+                sendId.setId(id);
+                EventBus.getDefault().post(sendId);
                 break;
             case R.id.stu_game_activity_two_item_book:
 
@@ -104,4 +122,6 @@ public class GameItemTwoActivity extends AppCompatActivity implements RadioGroup
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
 }

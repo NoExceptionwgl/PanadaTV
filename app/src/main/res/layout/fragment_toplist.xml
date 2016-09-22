@@ -38,4 +38,10 @@
             android:text="贡献总榜"/>
     </RadioGroup>
 
+    <FrameLayout
+        android:id="@+id/stu_toplist_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp" />
+
 </LinearLayout>

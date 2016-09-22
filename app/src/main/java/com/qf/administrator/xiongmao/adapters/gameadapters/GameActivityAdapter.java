@@ -91,8 +91,10 @@ public class GameActivityAdapter extends RecyclerView.Adapter<GameActivityAdapte
     @Override
     public void onClick(View v) {
         int position = mRecyclerView.getChildAdapterPosition(v);
+        String id = data.get(position).getId();
+        String hostid = data.get(position).getHostid();
         if (onItemClickOne!=null) {
-            onItemClickOne.onType(position);
+            onItemClickOne.onType(position,id,hostid);
         }
     }
 
@@ -113,6 +115,6 @@ public class GameActivityAdapter extends RecyclerView.Adapter<GameActivityAdapte
         }
     }
     public interface OnItemClickOne{
-        void onType(int position);
+        void onType(int position,String id,String hostid);
     }
 }

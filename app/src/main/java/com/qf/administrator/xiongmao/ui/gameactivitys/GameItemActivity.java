@@ -126,9 +126,11 @@ public class GameItemActivity extends AppCompatActivity implements GameActivityA
     }
 
     @Override
-    public void onType(int position) {
+    public void onType(int position,String id,String hostid) {
         Log.e(TAG, "onType: "+position );
         Intent intent = new Intent(this, GameItemTwoActivity.class);
+        intent.putExtra("id",id);
+        intent.putExtra("hostid",hostid);
         startActivity(intent);
     }
 
