@@ -125,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //-------------------------登陆的回调监听---------------------------------
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        PreferenceUtil.setBoolean(this,"is_logined",true);
         finish();
     }
 

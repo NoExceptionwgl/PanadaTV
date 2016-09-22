@@ -70,15 +70,13 @@ public class PanadaShowActivity extends AppCompatActivity implements RadioGroup.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_panada_show_book:
-                if (isLogin) {
+                if (JumpLogin.isLogin(this)) {
                     Toast.makeText(PanadaShowActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                 }else {
                     JumpLogin.login(this);
-                   //登陆成功,标记设置为true
 
                 }
                 break;
-
         }
     }
 

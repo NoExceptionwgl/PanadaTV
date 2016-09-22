@@ -9,13 +9,11 @@ import android.content.SharedPreferences;
  */
 public class JumpLogin {
 
-    public static boolean logged;
-
     public static boolean isLogin(Context context){
-        SharedPreferences preferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+//        SharedPreferences preferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+//        boolean is_logined = preferences.getBoolean("is_logined", false);
+        return  PreferenceUtil.getBoolean(context, "is_logined", false);
 
-
-        return logged;
     }
 
     public static void login(Context context) {
