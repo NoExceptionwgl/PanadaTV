@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.qf.administrator.xiongmao.R;
@@ -17,6 +18,7 @@ import com.qf.administrator.xiongmao.adapters.gameadapters.GameAdapter;
 import com.qf.administrator.xiongmao.constants.HttpUrl;
 import com.qf.administrator.xiongmao.models.GameModel;
 import com.qf.administrator.xiongmao.ui.gameactivitys.GameItemActivity;
+import com.qf.administrator.xiongmao.ui.gameactivitys.SousuoActivity;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -30,7 +32,7 @@ import butterknife.InjectView;
 /**
  * 游戏
  */
-public class GameFragment extends BaseFragment implements GameAdapter.OnItemClick, SwipeRefreshLayout.OnRefreshListener {
+public class GameFragment extends BaseFragment implements GameAdapter.OnItemClick, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final String TAG = GameFragment.class.getSimpleName();
     @InjectView(R.id.stu_game_recycler)
@@ -38,6 +40,7 @@ public class GameFragment extends BaseFragment implements GameAdapter.OnItemClic
     @InjectView(R.id.stu_game_swipe)
     SwipeRefreshLayout mSwipe;
     private GameAdapter adapter;
+    private ImageView mImageView;
 
     @Nullable
     @Override
@@ -55,10 +58,12 @@ public class GameFragment extends BaseFragment implements GameAdapter.OnItemClic
     }
 
     private void initView() {
+        mImageView = ((ImageView) layout.findViewById(R.id.stu_game_sousuo));
+        mImageView.setOnClickListener(this);
         //设置刷新颜色
         mSwipe.setColorSchemeResources(R.color.swipeColor);
         //设置下拉距离
-        mSwipe.setProgressViewOffset(true, 100,200 );
+        mSwipe.setProgressViewOffset(true, 0,300 );
 
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 3);
         mRecycler.setLayoutManager(layout);
@@ -115,5 +120,15 @@ public class GameFragment extends BaseFragment implements GameAdapter.OnItemClic
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.stu_game_sousuo:
+                Intent intent = new Intent(getActivity(), SousuoActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
